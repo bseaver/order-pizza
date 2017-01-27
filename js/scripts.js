@@ -28,6 +28,10 @@ $(document).ready(function() {
     event.preventDefault();
 
     var pizzaSize = $("#pizzaSize input:checked").val();
+    var pizzaToppings = [];
+    $(".pizzaTopping input:checked").each(function() {
+      pizzaToppings.push( $(this).attr("name") );
+    });
 
     var orderPizza = new Pizza(pizzaSize);
     var pizzaPrice =  orderPizza.calculateCost(pizzaSizePrices)
