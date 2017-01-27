@@ -1,9 +1,10 @@
   ////////////////////
  // Back End Section
 ////////////////////
-var pizzaSizePrices = [
-  [11, 5.00],
-  [18, 9.00],
+var pizzaSizes = [
+  // [value, price, description, option name]
+  [11, 5.00, "11 Inch", "pizzaSize"],
+  [18, 9.00, "18 Inch", "pizzaSize"],
 ];
 
 var pizzaToppingDefaultPrice = 0.50;
@@ -31,7 +32,6 @@ Pizza.prototype.calculateCost = function(sizePrices, toppingDefaultPrice) {
   /////////////////////
  // Front End Section
 /////////////////////
-
 // From: http://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-money-in-javascript
 Number.prototype.formatMoney = function(c, d, t){
 var n = this,
@@ -44,8 +44,23 @@ var n = this,
    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
  };
 
+ // Generate Size Radio Buttons based upon size data and example radio button HTML
+function insertPizzaSizeRadioButtons(pizzaSizes, radioButtonTemplate) {
+  // Remove sample HTML
+  $("#pizzaSize").html("");
+  // Populate from array and template replacing Label and value
+  pizzaSizes.forEach(function(pizzaSizeData) {
+    var newSizeButton = radioButtonTemplate.replace("sampleLabel", pizzaSizeData[2]).replace("sampleValue", pizzaSizeData[0]);
+    $("#pizzaSize").append(newSizeButton);
+  });
+}
 
 $(document).ready(function() {
+  var pizzaSizeRadioButtonTemplate = $("#pizzaSize").html();
+  insertPizzaSizeRadioButtons(pizzaSizes, pizzaSizeRadioButtonTemplate);
+
+
+
 
   $("form").submit(function(event) {
     event.preventDefault();
