@@ -7,6 +7,14 @@ var pizzaSizes = [
   [18, 9.00, "18 Inch", "pizzaSize"],
 ];
 
+var pizzaToppings = [
+  ["redSauce", "Red Sauce"],
+  ["whiteSauce", "White Sauce"],
+  ["mozzarella", "Mozzarella Cheese"],
+  ["pepperoni", "Pepperoni"],
+  ["artichoke", "Artichoke"]
+]
+
 var pizzaToppingDefaultPrice = 0.50;
 
 
@@ -45,21 +53,37 @@ var n = this,
  };
 
  // Generate Size Radio Buttons based upon size data and example radio button HTML
-function insertPizzaSizeRadioButtons(pizzaSizes, radioButtonTemplate) {
-  // Remove sample HTML
-  $("#pizzaSize").html("");
-  // Populate from array and template replacing Label and value
-  pizzaSizes.forEach(function(pizzaSizeData) {
-    var newSizeButton = radioButtonTemplate.replace("sampleLabel", pizzaSizeData[2]).replace("sampleValue", pizzaSizeData[0]);
-    $("#pizzaSize").append(newSizeButton);
-  });
-}
+ function insertPizzaSizeRadioButtons(pizzaSizes, radioButtonTemplate) {
+   // Remove sample HTML
+   $("#pizzaSize").html("");
+   // Populate from array and template replacing Label and value
+   pizzaSizes.forEach(function(pizzaSizeData) {
+     var newSizeButton = radioButtonTemplate.replace("sampleLabel", pizzaSizeData[2]).replace("sampleValue", pizzaSizeData[0]);
+     $("#pizzaSize").append(newSizeButton);
+   });
+ }
+
+
+ function insertPizzaPizzaToppingCheckboxes(pizzaToppings, pizzaToppingCheckboxTemplate) {
+   // Remove sample HTML
+   $("#pizzaToppings").html("");
+   // Populate from array and template replacing Label and name
+   pizzaToppings.forEach(function(pizzaToppingData) {
+     var newToppingCheckbox = pizzaToppingCheckboxTemplate.replace("sampleLabel", pizzaToppingData[1]).replace("sampleName", pizzaToppingData[0]);
+     $("#pizzaToppings").append(newToppingCheckbox);
+   });
+ }
+
+
 
 $(document).ready(function() {
+  // Render Pizza Size Radio Buttons
   var pizzaSizeRadioButtonTemplate = $("#pizzaSize").html();
   insertPizzaSizeRadioButtons(pizzaSizes, pizzaSizeRadioButtonTemplate);
 
-
+  // Render Pizza Toppings Checkboxes
+  var pizzaToppingCheckboxTemplate = $("#pizzaToppings").html();
+  insertPizzaPizzaToppingCheckboxes(pizzaToppings, pizzaToppingCheckboxTemplate);
 
 
   $("form").submit(function(event) {
@@ -72,7 +96,7 @@ $(document).ready(function() {
     });
 
     var orderPizza = new Pizza(pizzaSize, pizzaToppings);
-    var pizzaPrice =  orderPizza.calculateCost(pizzaSizePrices, pizzaToppingDefaultPrice);
+    var pizzaPrice =  orderPizza.calculateCost(pizzaSizes, pizzaToppingDefaultPrice);
 
     $("#outputSection").children().first().text("$" + pizzaPrice.formatMoney(2));
     $("#outputSection").fadeOut(100).fadeIn(100);
