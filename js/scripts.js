@@ -6,17 +6,27 @@ var pizzaSizePrices = [
   [18, 9.00],
 ];
 
-function Pizza(size) {
+var pizzaToppingDefaultPrice = 0.50;
+
+
+function Pizza(size, toppings) {
   this.size = size;
+  this.toppings = toppings;
 }
 
-Pizza.prototype.calculateCost = function(sizePrices) {
+
+Pizza.prototype.calculateCost = function(sizePrices, toppingDefaultPrice) {
+  var sizePrice;
   for (var i = 0; i < sizePrices.length; i++) {
-    if (sizePrices[i][0] == this.size) {
-      return sizePrices[i][1];
+    if (Math.round(sizePrices[i][0]) === Math.round(this.size)) {
+      sizePrice = sizePrices[i][1];
+      break;
     }
   }
+  var toppingsPrice = this.toppings.length * toppingDefaultPrice;
+  return sizePrice + toppingsPrice
 };
+
 
   /////////////////////
  // Front End Section
@@ -33,8 +43,8 @@ $(document).ready(function() {
       pizzaToppings.push( $(this).attr("name") );
     });
 
-    var orderPizza = new Pizza(pizzaSize);
-    var pizzaPrice =  orderPizza.calculateCost(pizzaSizePrices)
+    var orderPizza = new Pizza(pizzaSize, pizzaToppings);
+    var pizzaPrice =  orderPizza.calculateCost(pizzaSizePrices, pizzaToppingDefaultPrice);
 
     $("#outputSection").children().first().text(pizzaPrice);
     $("#outputSection").fadeOut(100).fadeIn(100);
