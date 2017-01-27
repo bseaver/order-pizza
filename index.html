@@ -14,26 +14,52 @@
 
       <h4>Select size and options to price your pizza!</h4>
 
-      <form>
-        <div id="pizzaSize" class="radio">
-          <label class="radio-inline">
-            <input type="radio" name="pizzaSize" value="sampleValue" required>
-              sampleLabel
-          </label>
-        </div>
-
-        <div id="pizzaToppings">
-          <div class="checkbox pizzaTopping">
-            <label>
-              <input type="checkbox" name="sampleName">
+      <div class="row">
+        <!-- First column adds and edits a pizza -->
+        <div class="col-md-6">
+            <div id="pizzaSize" class="radio">
+              <label class="radio-inline">
+                <input type="radio" name="pizzaSize" value="sampleValue" required>
                 sampleLabel
-              </input>
-            </label>
-          </div>
+              </label>
+            </div>
+
+            <div id="pizzaToppings">
+              <div class="checkbox pizzaTopping">
+                <label>
+                  <input type="checkbox" name="sampleName">sampleLabel</input>
+                </label>
+              </div>
+            </div>
+
+            <button class="btn btn-primary" id="addPizzaButton" type="button">Add this pizza to your order</button>
         </div>
 
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form> <!-- End form -->
+        <!-- Second column shows already added pizzas -->
+        <div class="col-md-6">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Pizza</th>
+                <th>Price</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>11 inch Peporoni</td>
+                <td>$5.50</td>
+                <td>(*)</td>
+                <td>(X)</td>
+              </tr>
+            </tbody>
+          </table>
+
+
+        </div>
+      </div>
+
 
       <div id="outputSection" class="well">
         <h4>Output goes here!</h4>

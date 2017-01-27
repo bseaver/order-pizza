@@ -86,9 +86,7 @@ $(document).ready(function() {
   insertPizzaPizzaToppingCheckboxes(pizzaToppings, pizzaToppingCheckboxTemplate);
 
 
-  $("form").submit(function(event) {
-    event.preventDefault();
-
+  $("#addPizzaButton").click(function() {
     var pizzaSize = $("#pizzaSize input:checked").val();
     var pizzaToppings = [];
     $(".pizzaTopping input:checked").each(function() {

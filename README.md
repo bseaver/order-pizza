@@ -38,7 +38,9 @@ The project seeks to go through phases of developing back end and front end func
 * MIT
 
 ## Specifications
-### Phase 2: Use data to generate radio buttons and checkboxes
+### Phase 3: Enable ordering multiple pizzas
+
+### Phase 2: Use data to render radio buttons and checkboxes
 
 ### Phase 1: Begin back end by creating Pizza object with size and toppings. Create Price method to calculate price based upon size and toppings.  Create minimal Boostrap UI to accomplish testing.
 
