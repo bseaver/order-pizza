@@ -44,7 +44,6 @@ Pizza.prototype.describe = function(sizesData, toppingsData) {
   this.toppings.forEach(function(topping) {
     description += ", " + fromIdToDataItem(topping, toppingsData, 0, 1);
   })
-
   return description;
 }
 
@@ -64,6 +63,7 @@ Order.prototype.addPizza = function(pizza) {
   /////////////////////
  // Front End Section
 /////////////////////
+
 // From: http://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-money-in-javascript
 Number.prototype.formatMoney = function(c, d, t){
 var n = this,
@@ -74,36 +74,37 @@ var n = this,
     i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c))),
     j = (j = i.length) > 3 ? j % 3 : 0;
    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
- };
-
- // Generate Size Radio Buttons based upon size data and example radio button HTML
- function insertPizzaSizeRadioButtons(pizzaSizes, radioButtonTemplate) {
-   // Remove sample HTML
-   $("#pizzaSize").html("");
-   // Populate from array and template replacing Label and value
-   pizzaSizes.forEach(function(pizzaSizeData) {
-     var newSizeButton = radioButtonTemplate.replace("sampleLabel", pizzaSizeData[2]).replace("sampleValue", pizzaSizeData[0]);
-     $("#pizzaSize").append(newSizeButton);
-   });
- }
+};
 
 
- function insertPizzaPizzaToppingCheckboxes(pizzaToppings, pizzaToppingCheckboxTemplate) {
-   // Remove sample HTML
-   $("#pizzaToppings").html("");
-   // Populate from array and template replacing Label and name
-   pizzaToppings.forEach(function(pizzaToppingData) {
-     var newToppingCheckbox = pizzaToppingCheckboxTemplate.replace("sampleLabel", pizzaToppingData[1]).replace("sampleName", pizzaToppingData[0]);
-     $("#pizzaToppings").append(newToppingCheckbox);
-   });
- }
+// Define variables for storing HTML templates
+var pizzaSizeRadioButtonTemplate;
+var pizzaToppingCheckboxTemplate;
+
+
+// Render Size Radio Buttons based upon size data and radio button template HTML
+function insertPizzaSizeRadioButtons(pizzaSizes, radioButtonTemplate) {
+  $("#pizzaSize").html("");
+  pizzaSizes.forEach(function(pizzaSizeData) {
+    var newSizeButton = radioButtonTemplate.replace("sampleLabel", pizzaSizeData[2]).replace("sampleValue", pizzaSizeData[0]);
+    $("#pizzaSize").append(newSizeButton);
+  });
+}
+
+
+// Render toppings checkboxes based upon toppings data chceckbox template HTML
+function insertPizzaPizzaToppingCheckboxes(pizzaToppings, pizzaToppingCheckboxTemplate) {
+  $("#pizzaToppings").html("");
+  pizzaToppings.forEach(function(pizzaToppingData) {
+    var newToppingCheckbox = pizzaToppingCheckboxTemplate.replace("sampleLabel", pizzaToppingData[1]).replace("sampleName", pizzaToppingData[0]);
+    $("#pizzaToppings").append(newToppingCheckbox);
+  });
+}
 
 
 // Create an empty order for pizzas
 var customerOrder = new Order();
 
-var pizzaSizeRadioButtonTemplate;
-var pizzaToppingCheckboxTemplate;
 
 $(document).ready(function() {
   // Render Pizza Size Radio Buttons
