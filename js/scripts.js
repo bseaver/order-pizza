@@ -3,16 +3,24 @@
 ////////////////////
 var pizzaSizes = [
   // [value, price, description, option name]
-  ["11", 5.00, "11 Inch", "pizzaSize"],
-  ["18", 9.00, "18 Inch", "pizzaSize"],
+  ["8", 5.00, "8 Inch", "pizzaSize"],
+  ["12", 8.00, "12 Inch", "pizzaSize"],
+  ["18", 11.00, "18 Inch", "pizzaSize"],
 ];
 
 var pizzaToppings = [
   ["redSauce", "Red Sauce"],
-  ["whiteSauce", "White Sauce"],
-  ["mozzarella", "Mozzarella Cheese"],
+  ["mozzarella", "Cheese"],
+  ["veganCheese", "Vegan Cheese"],
   ["pepperoni", "Pepperoni"],
-  ["artichoke", "Artichoke"]
+  ["ham", "Ham"],
+  ["groundBeef", "Ground Beef"],
+  ["mushrooms", "Mushrooms"],
+  ["onions", "Onions"],
+  ["greenPeppers", "Green Peppers"],
+  ["redPeppers", "Red Peppers"],
+  ["artichoke", "Artichoke"],
+  ["pineapple", "Pineapple"]
 ]
 
 function fromIdToDataItem(id, dataArray, idColumn, ItemColumn) {
