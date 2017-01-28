@@ -1,1 +1,13 @@
-/*No styling used at this point*/
+body {
+  background-image: url("../img/gingham-style-background_1048-2586.jpg");
+  opacity: .93;
+  font-family: Baskerville, "Baskerville Old Face", "Goudy Old Style", Garamond, "Times New Roman", serif;
+}
+
+.jumbotron {
+  text-align: center;
+}
+
+h2, h4{
+  font-weight: bold;
+}

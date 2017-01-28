@@ -10,13 +10,21 @@
 
   <body>
     <div class="container">
-      <h2>Amore Pizza Shop</h2>
+      <div class="jumbotron">
+        <h2>Amore Pizza Shop</h2>
+        <p>Come visit us in the heart of Multnomah village</p>
+        <p>123 Main St, Portland OR 97219</p>
+        <p>503-555-1212</p>
+        <p>We can deliver to addresses in our zip code</p>
+      </div>
 
-      <h4>Select size and options to price your pizza!</h4>
 
-      <div class="row">
-        <!-- First column adds and edits a pizza -->
-        <div class="col-md-6">
+      <div class="well">
+        <div class="row">
+          <!-- First column adds and edits a pizza -->
+          <div class="col-md-6">
+            <h4>Select size and toppings to order your pizza!</h4>
+            
             <div id="pizzaSize" class="radio">
               <label class="radio-inline">
                 <input type="radio" name="pizzaSize" value="sampleValue">
@@ -33,22 +41,23 @@
             </div>
 
             <button class="btn btn-primary" id="addPizzaButton" type="button">Add this pizza to your order</button>
-        </div>
+          </div> <!-- End col -->
 
-        <!-- Second column shows already added pizzas -->
-        <div class="col-md-6">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Pizza</th>
-                <th>Price</th>
-              </tr>
-            </thead>
-            <tbody id="addedPizzas">
-            </tbody>
-          </table>
-        </div>
-      </div>
+          <!-- Second column shows already added pizzas -->
+          <div class="col-md-6">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Pizza</th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+              <tbody id="addedPizzas">
+              </tbody>
+            </table>
+          </div> <!-- End col -->
+        </div> <!-- End row -->
+      </div> <!-- End well -->
 
     </div> <!-- End container -->
   </body>
