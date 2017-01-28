@@ -88,6 +88,7 @@ function insertPizzaSizeRadioButtons(pizzaSizes, radioButtonTemplate) {
   pizzaSizes.forEach(function(pizzaSizeData) {
     var newSizeButton = radioButtonTemplate.replace("sampleLabel", pizzaSizeData[2]).replace("sampleValue", pizzaSizeData[0]);
     $("#pizzaSize").append(newSizeButton);
+    $("#pizzaSize input:first").prop("checked", "checked");
   });
 }
 
