@@ -111,6 +111,20 @@ function insertPizzaPizzaToppingCheckboxes(pizzaToppings, pizzaToppingCheckboxTe
 }
 
 
+// Render table of added pizzas
+function insertAddedPizzasIntoTable(customerOrder, pizzaSizes, pizzaToppings, pizzaToppingDefaultPrice) {
+  $("#addedPizzas").html("");
+  customerOrder.pizzas.forEach(function(pizza) {
+    $("#addedPizzas").append(
+      "<tr>" +
+        "<td>" + pizza.describe(pizzaSizes, pizzaToppings) + "</td>" +
+        "<td>" + "$" + pizza.calculateCost(pizzaSizes, pizzaToppingDefaultPrice).formatMoney(2) + "</td>" +
+      "</tr>"
+    );
+  });
+}
+
+
 // Create an empty order for pizzas
 var customerOrder = new Order();
 
@@ -135,16 +149,7 @@ $(document).ready(function() {
     var orderPizza = new Pizza(selectedSize, selectedToppings);
     customerOrder.addPizza(orderPizza);
 
-    $("#addedPizzas").html("");
-    customerOrder.pizzas.forEach(function(pizza) {
-      $("#addedPizzas").append(
-        "<tr>" +
-          "<td>" + pizza.describe(pizzaSizes, pizzaToppings) + "</td>" +
-          "<td>" + "$" + pizza.calculateCost(pizzaSizes, pizzaToppingDefaultPrice).formatMoney(2) + "</td>" +
-        "</tr>"
-      );
-    });
-
+    insertAddedPizzasIntoTable(customerOrder, pizzaSizes, pizzaToppings, pizzaToppingDefaultPrice);
     insertPizzaSizeRadioButtons(pizzaSizes, pizzaSizeRadioButtonTemplate);
     insertPizzaPizzaToppingCheckboxes(pizzaToppings, pizzaToppingCheckboxTemplate);
   });
