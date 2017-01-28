@@ -3,8 +3,8 @@
 ////////////////////
 var pizzaSizes = [
   // [value, price, description, option name]
-  [11, 5.00, "11 Inch", "pizzaSize"],
-  [18, 9.00, "18 Inch", "pizzaSize"],
+  ["11", 5.00, "11 Inch", "pizzaSize"],
+  ["18", 9.00, "18 Inch", "pizzaSize"],
 ];
 
 var pizzaToppings = [
@@ -14,6 +14,14 @@ var pizzaToppings = [
   ["pepperoni", "Pepperoni"],
   ["artichoke", "Artichoke"]
 ]
+
+function fromIdToDataItem(id, dataArray, idColumn, ItemColumn) {
+  for (var i = 0; i < dataArray.length; i++) {
+    if (dataArray[i][idColumn] === id) {
+      return dataArray[i][ItemColumn];
+    }
+  }
+}
 
 var pizzaToppingDefaultPrice = 0.50;
 
@@ -25,16 +33,32 @@ function Pizza(size, toppings) {
 
 
 Pizza.prototype.calculateCost = function(sizePrices, toppingDefaultPrice) {
-  var sizePrice;
-  for (var i = 0; i < sizePrices.length; i++) {
-    if (Math.round(sizePrices[i][0]) === Math.round(this.size)) {
-      sizePrice = sizePrices[i][1];
-      break;
-    }
-  }
+  var sizePrice = fromIdToDataItem(this.size, sizePrices, 0, 1);
   var toppingsPrice = this.toppings.length * toppingDefaultPrice;
   return sizePrice + toppingsPrice
 };
+
+
+Pizza.prototype.describe = function(sizesData, toppingsData) {
+  var description = fromIdToDataItem(this.size, sizesData, 0, 2);
+  this.toppings.forEach(function(topping) {
+    description += ", " + fromIdToDataItem(topping, toppingsData, 0, 1);
+  })
+
+  return description;
+}
+
+
+function Order() {
+  this.pizzas = [];
+}
+
+
+Order.prototype.addPizza = function(pizza) {
+  this.pizzas.push(pizza);
+}
+
+
 
 
   /////////////////////
@@ -75,29 +99,44 @@ var n = this,
  }
 
 
+// Create an empty order for pizzas
+var customerOrder = new Order();
+
+var pizzaSizeRadioButtonTemplate;
+var pizzaToppingCheckboxTemplate;
 
 $(document).ready(function() {
   // Render Pizza Size Radio Buttons
-  var pizzaSizeRadioButtonTemplate = $("#pizzaSize").html();
+  pizzaSizeRadioButtonTemplate = $("#pizzaSize").html();
   insertPizzaSizeRadioButtons(pizzaSizes, pizzaSizeRadioButtonTemplate);
 
   // Render Pizza Toppings Checkboxes
-  var pizzaToppingCheckboxTemplate = $("#pizzaToppings").html();
+  pizzaToppingCheckboxTemplate = $("#pizzaToppings").html();
   insertPizzaPizzaToppingCheckboxes(pizzaToppings, pizzaToppingCheckboxTemplate);
 
 
   $("#addPizzaButton").click(function() {
-    var pizzaSize = $("#pizzaSize input:checked").val();
-    var pizzaToppings = [];
+    var selectedSize = $("#pizzaSize input:checked").val();
+    var selectedToppings = [];
     $(".pizzaTopping input:checked").each(function() {
-      pizzaToppings.push( $(this).attr("name") );
+      selectedToppings.push( $(this).attr("name") );
     });
 
-    var orderPizza = new Pizza(pizzaSize, pizzaToppings);
-    var pizzaPrice =  orderPizza.calculateCost(pizzaSizes, pizzaToppingDefaultPrice);
+    var orderPizza = new Pizza(selectedSize, selectedToppings);
+    customerOrder.addPizza(orderPizza);
 
-    $("#outputSection").children().first().text("$" + pizzaPrice.formatMoney(2));
-    $("#outputSection").fadeOut(100).fadeIn(100);
+    $("#addedPizzas").html("");
+    customerOrder.pizzas.forEach(function(pizza) {
+      $("#addedPizzas").append(
+        "<tr>" +
+          "<td>" + pizza.describe(pizzaSizes, pizzaToppings) + "</td>" +
+          "<td>" + "$" + pizza.calculateCost(pizzaSizes, pizzaToppingDefaultPrice).formatMoney(2) + "</td>" +
+        "</tr>"
+      );
+    });
+
+    insertPizzaSizeRadioButtons(pizzaSizes, pizzaSizeRadioButtonTemplate);
+    insertPizzaPizzaToppingCheckboxes(pizzaToppings, pizzaToppingCheckboxTemplate);
   });
 
 }); // End document ready
