@@ -66,6 +66,11 @@ Order.prototype.addPizza = function(pizza) {
 }
 
 
+Order.prototype.allPizzas = function() {
+  return this.pizzas;
+}
+
+
 Order.prototype.deletePizza = function(pizzaIndex) {
   this.pizzas.splice(pizzaIndex, 1);
 }
@@ -119,7 +124,7 @@ function insertPizzaPizzaToppingCheckboxes(pizzaToppings, pizzaToppingCheckboxTe
 // Render table of added pizzas
 function insertAddedPizzasIntoTable(customerOrder, pizzaSizes, pizzaToppings, pizzaToppingDefaultPrice) {
   $("#addedPizzas").html("");
-  customerOrder.pizzas.forEach(function(pizza, pizzaIndex) {
+  customerOrder.allPizzas().forEach(function(pizza, pizzaIndex) {
     $("#addedPizzas").append(
       "<tr>" +
         "<td>" +
