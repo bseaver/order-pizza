@@ -66,6 +66,11 @@ Order.prototype.addPizza = function(pizza) {
 }
 
 
+Order.prototype.deletePizza = function(pizzaIndex) {
+  this.pizzas.splice(pizzaIndex, 1);
+}
+
+
 
 
   /////////////////////
@@ -114,13 +119,26 @@ function insertPizzaPizzaToppingCheckboxes(pizzaToppings, pizzaToppingCheckboxTe
 // Render table of added pizzas
 function insertAddedPizzasIntoTable(customerOrder, pizzaSizes, pizzaToppings, pizzaToppingDefaultPrice) {
   $("#addedPizzas").html("");
-  customerOrder.pizzas.forEach(function(pizza) {
+  customerOrder.pizzas.forEach(function(pizza, pizzaIndex) {
     $("#addedPizzas").append(
       "<tr>" +
-        "<td>" + pizza.describe(pizzaSizes, pizzaToppings) + "</td>" +
-        "<td>" + "$" + pizza.calculateCost(pizzaSizes, pizzaToppingDefaultPrice).formatMoney(2) + "</td>" +
+        "<td>" +
+          pizza.describe(pizzaSizes, pizzaToppings) +
+        "</td>" +
+        "<td>" +
+          "$" + pizza.calculateCost(pizzaSizes, pizzaToppingDefaultPrice).formatMoney(2) +
+        "</td>" +
+        "<td>" +
+          '<button class="btn btn-xs btn-warning pizzaDeleteButton" type="button">' +
+            '<span class="pizzaDeleteButtonX">X</span>' +
+          '</button>' +
+        "</td>" +
       "</tr>"
     );
+    $(".pizzaDeleteButton").last().click(function(){
+      customerOrder.deletePizza(pizzaIndex);
+      insertAddedPizzasIntoTable(customerOrder, pizzaSizes, pizzaToppings, pizzaToppingDefaultPrice)
+    })
   });
 }
 
