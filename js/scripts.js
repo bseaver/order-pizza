@@ -21,7 +21,7 @@ var pizzaToppings = [
   ["redPeppers", "Red Peppers"],
   ["artichoke", "Artichoke"],
   ["pineapple", "Pineapple"]
-]
+];
 
 function fromIdToDataItem(id, dataArray, idColumn, ItemColumn) {
   for (var i = 0; i < dataArray.length; i++) {
@@ -153,10 +153,10 @@ function insertAddedPizzasIntoTable(customerOrder, pizzaSizes, pizzaToppings, pi
     $("#addedPizzas").append(
       "<tr>" +
       "<td>" +
-      "Total"+
+        "Total"+
       "</td>" +
       "<td>" +
-      "$" + pizzaPriceTotal.formatMoney(2) +
+        "$" + pizzaPriceTotal.formatMoney(2) +
       "</td>" +
       "<td>" +
       "</td>" +
