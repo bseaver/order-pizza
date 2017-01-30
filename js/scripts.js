@@ -123,15 +123,18 @@ function insertPizzaPizzaToppingCheckboxes(pizzaToppings, pizzaToppingCheckboxTe
 
 // Render table of added pizzas
 function insertAddedPizzasIntoTable(customerOrder, pizzaSizes, pizzaToppings, pizzaToppingDefaultPrice) {
+  var pizzaPriceTotal = 0.00;
   $("#addedPizzas").html("");
   customerOrder.allPizzas().forEach(function(pizza, pizzaIndex) {
+    var pizzaPrice = pizza.calculateCost(pizzaSizes, pizzaToppingDefaultPrice);
+    pizzaPriceTotal += pizzaPrice;
     $("#addedPizzas").append(
       "<tr>" +
         "<td>" +
           pizza.describe(pizzaSizes, pizzaToppings) +
         "</td>" +
         "<td>" +
-          "$" + pizza.calculateCost(pizzaSizes, pizzaToppingDefaultPrice).formatMoney(2) +
+          "$" + pizzaPrice.formatMoney(2) +
         "</td>" +
         "<td>" +
           '<button class="btn btn-xs btn-warning pizzaDeleteButton" type="button">' +
@@ -145,6 +148,21 @@ function insertAddedPizzasIntoTable(customerOrder, pizzaSizes, pizzaToppings, pi
       insertAddedPizzasIntoTable(customerOrder, pizzaSizes, pizzaToppings, pizzaToppingDefaultPrice)
     })
   });
+
+  if (customerOrder.allPizzas().length > 1) {
+    $("#addedPizzas").append(
+      "<tr>" +
+      "<td>" +
+      "Total"+
+      "</td>" +
+      "<td>" +
+      "$" + pizzaPriceTotal.formatMoney(2) +
+      "</td>" +
+      "<td>" +
+      "</td>" +
+      "</tr>"
+    );
+  }
 }
 
 
